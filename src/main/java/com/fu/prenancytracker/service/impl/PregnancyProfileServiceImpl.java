@@ -1,5 +1,6 @@
 package com.fu.prenancytracker.service.impl;
 
+import com.fu.prenancytracker.exception.EntityNotFoundException;
 import com.fu.prenancytracker.model.PregnancyProfile;
 import com.fu.prenancytracker.repository.PregnancyProfileRepository;
 import com.fu.prenancytracker.service.PregnancyProfileService;
@@ -33,6 +34,11 @@ public class PregnancyProfileServiceImpl implements PregnancyProfileService {
     @Override
     public PregnancyProfile updatePregnancyProfile(PregnancyProfile profile) {
         return pregnancyProfileRepository.save(profile);
+    }
+
+    @Override
+    public Optional<PregnancyProfile> findByID(Integer pregnancyProfileId) {
+        return pregnancyProfileRepository.findAllById(pregnancyProfileId);
     }
 
     @Override
