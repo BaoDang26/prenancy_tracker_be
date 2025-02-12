@@ -3,8 +3,6 @@ package com.fu.prenancytracker.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Nationalized;
 
@@ -32,12 +30,12 @@ public class SubscriptionPlan {
     private String type;
 
     @NotNull
-    @Column(name = "PriceMonthly", nullable = false, precision = 10, scale = 2)
-    private BigDecimal priceMonthly;
+    @Column(name = "Price", nullable = false, precision = 10, scale = 2)
+    private BigDecimal price;
 
     @NotNull
-    @Column(name = "PriceYear", nullable = false, precision = 10, scale = 2)
-    private BigDecimal priceYear;
+    @Column(name = "Duration", nullable = false)
+    private Integer duration;
 
     @Nationalized
     @Lob
@@ -52,20 +50,6 @@ public class SubscriptionPlan {
     @ColumnDefault("sysdatetime()")
     @Column(name = "CreatedDate", nullable = false)
     private Instant createdDate;
-
-    public SubscriptionPlan(Integer id, String name, String type, BigDecimal priceMonthly, BigDecimal priceYear, String description, Boolean isActive, Instant createdDate) {
-        this.id = id;
-        this.name = name;
-        this.type = type;
-        this.priceMonthly = priceMonthly;
-        this.priceYear = priceYear;
-        this.description = description;
-        this.isActive = isActive;
-        this.createdDate = createdDate;
-    }
-
-    public SubscriptionPlan() {
-    }
 
     public Integer getId() {
         return id;
@@ -91,20 +75,20 @@ public class SubscriptionPlan {
         this.type = type;
     }
 
-    public BigDecimal getPriceMonthly() {
-        return priceMonthly;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setPriceMonthly(BigDecimal priceMonthly) {
-        this.priceMonthly = priceMonthly;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
-    public BigDecimal getPriceYear() {
-        return priceYear;
+    public Integer getDuration() {
+        return duration;
     }
 
-    public void setPriceYear(BigDecimal priceYear) {
-        this.priceYear = priceYear;
+    public void setDuration(Integer duration) {
+        this.duration = duration;
     }
 
     public String getDescription() {

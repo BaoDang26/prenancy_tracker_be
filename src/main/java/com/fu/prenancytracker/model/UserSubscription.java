@@ -3,8 +3,6 @@ package com.fu.prenancytracker.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Nationalized;
 
@@ -28,7 +26,7 @@ public class UserSubscription {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "PlanID", nullable = false)
-    private SubscriptionPlan plan;
+    private SubscriptionPlan subscriptionPlan;
 
     @NotNull
     @Column(name = "StartDate", nullable = false)
@@ -39,51 +37,36 @@ public class UserSubscription {
     private LocalDate endDate;
 
     @NotNull
-    @ColumnDefault("sysdatetime()")
-    @Column(name = "CreatedDate", nullable = false)
-    private Instant createdDate;
-
-    @NotNull
     @Column(name = "Amount", nullable = false, precision = 10, scale = 2)
     private BigDecimal amount;
 
+    @Size(max = 15)
+    @NotNull
+    @ColumnDefault("'active'")
+    @Column(name = "SubscriptionCode", nullable = false, length = 15)
+    private String subscriptionCode;
+
+    @Size(max = 20)
+    @Column(name = "BankCode", length = 20)
+    private String bankCode;
+
+    @Size(max = 15)
+    @Column(name = "TransactionNo", length = 15)
+    private String transactionNo;
+
+    @Column(name = "PaymentDate")
+    private Instant paymentDate;
+
     @Size(max = 50)
     @NotNull
     @Nationalized
-    @ColumnDefault("'active'")
     @Column(name = "Status", nullable = false, length = 50)
     private String status;
 
-    @Size(max = 50)
-    @Nationalized
-    @Column(name = "PaymentStatus", length = 50)
-    private String paymentStatus;
-
-    @Size(max = 50)
-    @Nationalized
-    @Column(name = "PaymentMethod", length = 50)
-    private String paymentMethod;
-
-    @Size(max = 50)
-    @Column(name = "PaymentCode", length = 50)
-    private String paymentCode;
-
-    public UserSubscription(Integer id, User user, SubscriptionPlan plan, LocalDate startDate, LocalDate endDate, Instant createdDate, BigDecimal amount, String status, String paymentStatus, String paymentMethod, String paymentCode) {
-        this.id = id;
-        this.user = user;
-        this.plan = plan;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.createdDate = createdDate;
-        this.amount = amount;
-        this.status = status;
-        this.paymentStatus = paymentStatus;
-        this.paymentMethod = paymentMethod;
-        this.paymentCode = paymentCode;
-    }
-
-    public UserSubscription() {
-    }
+    @NotNull
+    @ColumnDefault("sysdatetime()")
+    @Column(name = "CreatedDate", nullable = false)
+    private Instant createdDate;
 
     public Integer getId() {
         return id;
@@ -99,14 +82,6 @@ public class UserSubscription {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public SubscriptionPlan getPlan() {
-        return plan;
-    }
-
-    public void setPlan(SubscriptionPlan plan) {
-        this.plan = plan;
     }
 
     public LocalDate getStartDate() {
@@ -125,20 +100,44 @@ public class UserSubscription {
         this.endDate = endDate;
     }
 
-    public Instant getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Instant createdDate) {
-        this.createdDate = createdDate;
-    }
-
     public BigDecimal getAmount() {
         return amount;
     }
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    public String getSubscriptionCode() {
+        return subscriptionCode;
+    }
+
+    public void setSubscriptionCode(String subscriptionCode) {
+        this.subscriptionCode = subscriptionCode;
+    }
+
+    public String getBankCode() {
+        return bankCode;
+    }
+
+    public void setBankCode(String bankCode) {
+        this.bankCode = bankCode;
+    }
+
+    public String getTransactionNo() {
+        return transactionNo;
+    }
+
+    public void setTransactionNo(String transactionNo) {
+        this.transactionNo = transactionNo;
+    }
+
+    public Instant getPaymentDate() {
+        return paymentDate;
+    }
+
+    public void setPaymentDate(Instant paymentDate) {
+        this.paymentDate = paymentDate;
     }
 
     public String getStatus() {
@@ -149,27 +148,19 @@ public class UserSubscription {
         this.status = status;
     }
 
-    public String getPaymentStatus() {
-        return paymentStatus;
+    public Instant getCreatedDate() {
+        return createdDate;
     }
 
-    public void setPaymentStatus(String paymentStatus) {
-        this.paymentStatus = paymentStatus;
+    public void setCreatedDate(Instant createdDate) {
+        this.createdDate = createdDate;
     }
 
-    public String getPaymentMethod() {
-        return paymentMethod;
+    public SubscriptionPlan getSubscriptionPlan() {
+        return subscriptionPlan;
     }
 
-    public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
-
-    public String getPaymentCode() {
-        return paymentCode;
-    }
-
-    public void setPaymentCode(String paymentCode) {
-        this.paymentCode = paymentCode;
+    public void setSubscriptionPlan(SubscriptionPlan subscriptionPlan) {
+        this.subscriptionPlan = subscriptionPlan;
     }
 }
