@@ -21,19 +21,22 @@ public class CreatePregnancyProfileRequest implements Serializable {
     LocalDate lastPeriodDate;
     Integer pregnancyWeek;
     String notes;
-    @NotNull
-    @Size(max = 50)
-    String status;
+//    @NotNull
+//    @Size(max = 50)
+//    String status;
 
-    public CreatePregnancyProfileRequest(String nickName, LocalDate dueDate, LocalDate conceptionDate, LocalDate lastPeriodDate, Integer pregnancyWeek, String notes, String status) {
+    public CreatePregnancyProfileRequest(String nickName, LocalDate dueDate,
+                                         LocalDate conceptionDate, LocalDate lastPeriodDate,
+                                         Integer pregnancyWeek, String notes/*, String status*/) {
         this.nickName = nickName;
         this.dueDate = dueDate;
         this.conceptionDate = conceptionDate;
         this.lastPeriodDate = lastPeriodDate;
         this.pregnancyWeek = pregnancyWeek;
         this.notes = notes;
-        this.status = status;
+//        this.status = status;
     }
+
 
     public String getNickName() {
         return nickName;
@@ -58,8 +61,8 @@ public class CreatePregnancyProfileRequest implements Serializable {
     public String getNotes() {
         return notes;
     }
-
-    public String getStatus() {
-        return status;
-    }
+//
+//    public String getStatus() {
+//        return status;
+//    }
 }

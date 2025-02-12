@@ -2,6 +2,7 @@ package com.fu.prenancytracker.exception.advice;
 
 import com.fu.prenancytracker.exception.EntityNotFoundException;
 import com.fu.prenancytracker.exception.ErrorMessage;
+import com.fu.prenancytracker.exception.TokenException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -54,11 +55,11 @@ public class ControllerExceptionHandler {
     }
 
     @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity<ErrorMessage> badCredentialsExceptionHandler(BadCredentialsException ex, WebRequest request) {
+    public ResponseEntity<ErrorMessage> badCredentialsExceptionHandler(WebRequest request) {
         ErrorMessage message = new ErrorMessage(
                 HttpStatus.BAD_REQUEST.value(),
                 new Date(),
-                "Incorrect emmail or password.",
+                "Incorrect email or password.",
                 request.getDescription(false));
 
         return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
@@ -85,5 +86,16 @@ public class ControllerExceptionHandler {
         response.put("message", ex.getMessage());
 
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(TokenException.class)
+    public ResponseEntity<Object> handleTokenException(TokenException ex, WebRequest request) {
+        ErrorMessage message = new ErrorMessage(
+                HttpStatus.FORBIDDEN.value(),
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
+
+        return new ResponseEntity<>(message, HttpStatus.FORBIDDEN);
     }
 }

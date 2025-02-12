@@ -28,4 +28,9 @@ public class FetalGrowthMeasurementServiceImpl implements FetalGrowthMeasurement
     public FetalGrowthMeasurement getMeasurementById(Integer measurementId) {
         return fetalRepository.findById(measurementId).orElseThrow(() -> new EntityNotFoundException("Measurement id {" + measurementId + "} not found"));
     }
+
+    @Override
+    public Iterable<FetalGrowthMeasurement> findByPregnancyID(Integer pregnancyID) {
+        return fetalRepository.findAllByPregnancyProfile_Id(pregnancyID);
+    }
 }

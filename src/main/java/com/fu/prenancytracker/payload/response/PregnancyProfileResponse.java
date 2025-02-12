@@ -19,11 +19,11 @@ public class PregnancyProfileResponse implements Serializable {
     LocalDate lastPeriodDate;
     Integer pregnancyWeek;
     String notes;
-    String status;
+    //    String status;
     Instant createdDate;
     Integer userID;
 
-    public PregnancyProfileResponse(Integer id, String nickName, LocalDate dueDate, LocalDate conceptionDate, LocalDate lastPeriodDate, Integer pregnancyWeek, String notes, String status, Instant createdDate, Integer userID) {
+    public PregnancyProfileResponse(Integer id, String nickName, LocalDate dueDate, LocalDate conceptionDate, LocalDate lastPeriodDate, Integer pregnancyWeek, String notes, Instant createdDate, Integer userID) {
         this.id = id;
         this.nickName = nickName;
         this.dueDate = dueDate;
@@ -31,7 +31,7 @@ public class PregnancyProfileResponse implements Serializable {
         this.lastPeriodDate = lastPeriodDate;
         this.pregnancyWeek = pregnancyWeek;
         this.notes = notes;
-        this.status = status;
+//        this.status = status;
         this.createdDate = createdDate;
         this.userID = userID;
     }
@@ -65,9 +65,9 @@ public class PregnancyProfileResponse implements Serializable {
         return notes;
     }
 
-    public String getStatus() {
-        return status;
-    }
+//    public String getStatus() {
+//        return status;
+//    }
 
     public Instant getCreatedDate() {
         return createdDate;

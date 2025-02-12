@@ -4,6 +4,8 @@ import com.fu.prenancytracker.model.FetalGrowthMeasurement;
 import com.fu.prenancytracker.model.PregnancyProfile;
 import com.fu.prenancytracker.payload.request.CreateFetalGrowthMeasurementRequest;
 import com.fu.prenancytracker.payload.response.FetalGrowthMeasurementResponse;
+import com.fu.prenancytracker.payload.response.HeightSummaryResponse;
+import com.fu.prenancytracker.payload.response.WeightSummaryResponse;
 import com.fu.prenancytracker.security.CustomUserDetails;
 import com.fu.prenancytracker.service.FetalGrowthMeasurementService;
 import com.fu.prenancytracker.service.PregnancyProfileService;
@@ -13,6 +15,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -99,4 +102,64 @@ public class FetalController {
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "Get all fetal growth measurements by Pregnancy profile ID", description = "Retrieves all fetal growth measurements of Pregnancy profile for the user")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Measurements retrieved successfully", content = {
+                    @Content(schema = @Schema(implementation = FetalGrowthMeasurementResponse.class), mediaType = "application/json")}),
+            @ApiResponse(responseCode = "404", description = "Measurement not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    @GetMapping("/get-by-pregnancy/{pregnancyID}")
+    public ResponseEntity<?> getAllFetalByPregnancyID(@PathVariable Integer pregnancyID) {
+        Iterable<FetalGrowthMeasurement> fetalGrowthMeasurements = fetalGrowthMeasurementService.findByPregnancyID(pregnancyID);
+        if (!fetalGrowthMeasurements.iterator().hasNext()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        List<FetalGrowthMeasurementResponse> response = new ArrayList<>();
+        fetalGrowthMeasurements.forEach(measurement -> response.add(new FetalGrowthMeasurementResponse(measurement)));
+
+        return ResponseEntity.ok(response);
+    }
+
+    @Operation(summary = "Get summary height by Pregnancy profile ID", description = "Retrieves all height of fetal in Pregnancy profile for the user")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Height summary retrieved successfully", content = {
+                    @Content(schema = @Schema(implementation = HeightSummaryResponse.class), mediaType = "application/json")}),
+            @ApiResponse(responseCode = "404", description = "Measurement not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    @GetMapping("/get-height-summary/{pregnancyID}")
+    public ResponseEntity<?> getHeightSummary(@PathVariable Integer pregnancyID) {
+        Iterable<FetalGrowthMeasurement> fetalGrowthMeasurements = fetalGrowthMeasurementService.findByPregnancyID(pregnancyID);
+
+        if (!fetalGrowthMeasurements.iterator().hasNext()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        List<HeightSummaryResponse> response = new ArrayList<>();
+        fetalGrowthMeasurements.forEach(measurement -> response.add(new HeightSummaryResponse(measurement)));
+
+        return ResponseEntity.ok(response);
+    }
+
+    @Operation(summary = "Get summary weight by Pregnancy profile ID", description = "Retrieves all weight of fetal in Pregnancy profile for the user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Weight summary retrieved successfully", content = {
+                    @Content(schema = @Schema(implementation = WeightSummaryResponse.class), mediaType = "application/json")}),
+            @ApiResponse(responseCode = "404", description = "Measurement not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    @GetMapping("/get-weight-summary/{pregnancyID}")
+    public ResponseEntity<?> getWeightSummary(@PathVariable Integer pregnancyID) {
+        Iterable<FetalGrowthMeasurement> fetalGrowthMeasurements = fetalGrowthMeasurementService.findByPregnancyID(pregnancyID);
+
+        if (!fetalGrowthMeasurements.iterator().hasNext()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        List<WeightSummaryResponse> response = new ArrayList<>();
+        fetalGrowthMeasurements.forEach(measurement -> response.add(new WeightSummaryResponse(measurement)));
+
+        return ResponseEntity.ok(response);
+    }
 }

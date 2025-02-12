@@ -51,7 +51,7 @@ public class PregnancyProfileController {
         profile.setLastPeriodDate(profileRequest.getLastPeriodDate());
         profile.setPregnancyWeek(profileRequest.getPregnancyWeek());
         profile.setNotes(profileRequest.getNotes());
-        profile.setStatus(profileRequest.getStatus());
+        profile.setStatus("Active");
         profile.setCreatedDate(Instant.now());
         profile.setUser(userDetails.getUser());
 
@@ -65,7 +65,7 @@ public class PregnancyProfileController {
                 createdProfile.getLastPeriodDate(),
                 createdProfile.getPregnancyWeek(),
                 createdProfile.getNotes(),
-                createdProfile.getStatus(),
+//                createdProfile.getStatus(),
                 createdProfile.getCreatedDate(),
                 createdProfile.getUser().getId()
         );
@@ -111,7 +111,7 @@ public class PregnancyProfileController {
                 profile.get().getLastPeriodDate(),
                 profile.get().getPregnancyWeek(),
                 profile.get().getNotes(),
-                profile.get().getStatus(),
+//                profile.get().getStatus(),
                 profile.get().getCreatedDate(),
                 profile.get().getUser().getId()
         );
@@ -143,7 +143,7 @@ public class PregnancyProfileController {
                 profile.getLastPeriodDate(),
                 profile.getPregnancyWeek(),
                 profile.getNotes(),
-                profile.getStatus(),
+//                profile.getStatus(),
                 profile.getCreatedDate(),
                 profile.getUser().getId()
         )));

@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FetalGrowthMeasurementRepository extends JpaRepository<FetalGrowthMeasurement, Integer> {
+    Iterable<FetalGrowthMeasurement> findAllByPregnancyProfile_Id(Integer pregnancyProfileId);
 }
