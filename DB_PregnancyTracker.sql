@@ -1,6 +1,7 @@
 USE [master]
 GO
- CREATE DATABASE [PregnancyTracker] 
+/****** Object:  Database [PregnancyTracker]    Script Date: 2/18/2025 9:52:48 AM ******/
+CREATE DATABASE [PregnancyTracker]
 GO
 ALTER DATABASE [PregnancyTracker] SET ANSI_NULL_DEFAULT OFF 
 GO
@@ -68,7 +69,7 @@ ALTER DATABASE [PregnancyTracker] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, 
 GO
 USE [PregnancyTracker]
 GO
-/****** Object:  Table [dbo].[Comment]    Script Date: 2/11/2025 11:51:33 AM ******/
+/****** Object:  Table [dbo].[Comment]    Script Date: 2/18/2025 9:52:48 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -86,7 +87,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[CommunityPost]    Script Date: 2/11/2025 11:51:33 AM ******/
+/****** Object:  Table [dbo].[CommunityPost]    Script Date: 2/18/2025 9:52:48 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -106,7 +107,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[FetalGrowthMeasurements]    Script Date: 2/11/2025 11:51:33 AM ******/
+/****** Object:  Table [dbo].[FetalGrowthMeasurements]    Script Date: 2/18/2025 9:52:48 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -130,7 +131,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[PregnancyProfile]    Script Date: 2/11/2025 11:51:33 AM ******/
+/****** Object:  Table [dbo].[PregnancyProfile]    Script Date: 2/18/2025 9:52:48 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -152,7 +153,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[RefreshToken]    Script Date: 2/11/2025 11:51:33 AM ******/
+/****** Object:  Table [dbo].[RefreshToken]    Script Date: 2/18/2025 9:52:48 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -169,7 +170,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Role]    Script Date: 2/11/2025 11:51:33 AM ******/
+/****** Object:  Table [dbo].[Role]    Script Date: 2/18/2025 9:52:48 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -183,7 +184,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Schedule]    Script Date: 2/11/2025 11:51:33 AM ******/
+/****** Object:  Table [dbo].[Schedule]    Script Date: 2/18/2025 9:52:48 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -204,7 +205,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[SubscriptionPlan]    Script Date: 2/11/2025 11:51:33 AM ******/
+/****** Object:  Table [dbo].[SubscriptionPlan]    Script Date: 2/18/2025 9:52:48 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -212,19 +213,18 @@ GO
 CREATE TABLE [dbo].[SubscriptionPlan](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
 	[Name] [nvarchar](100) NOT NULL,
-	[Type] [nvarchar](50) NOT NULL,
-	[PriceMonthly] [decimal](10, 2) NOT NULL,
-	[PriceYear] [decimal](10, 2) NOT NULL,
+	[Price] [decimal](10, 2) NOT NULL,
+	[Duration] [int] NOT NULL,
 	[Description] [nvarchar](max) NULL,
 	[IsActive] [bit] NOT NULL,
 	[CreatedDate] [datetime] NOT NULL,
-PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK__Subscrip__3214EC272B5A4F93] PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[User]    Script Date: 2/11/2025 11:51:33 AM ******/
+/****** Object:  Table [dbo].[User]    Script Date: 2/18/2025 9:52:48 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -247,7 +247,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[UserSubscription]    Script Date: 2/11/2025 11:51:33 AM ******/
+/****** Object:  Table [dbo].[UserSubscription]    Script Date: 2/18/2025 9:52:48 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -258,13 +258,14 @@ CREATE TABLE [dbo].[UserSubscription](
 	[PlanID] [int] NOT NULL,
 	[StartDate] [date] NOT NULL,
 	[EndDate] [date] NOT NULL,
-	[CreatedDate] [datetime] NOT NULL,
 	[Amount] [decimal](10, 2) NOT NULL,
+	[SubscriptionCode] [char](15) NOT NULL,
+	[BankCode] [varchar](20) NULL,
+	[TransactionNo] [varchar](15) NULL,
+	[PaymentDate] [datetime] NULL,
 	[Status] [nvarchar](50) NOT NULL,
-	[PaymentStatus] [nvarchar](50) NULL,
-	[PaymentMethod] [nvarchar](50) NULL,
-	[PaymentCode] [varchar](50) NULL,
-PRIMARY KEY CLUSTERED 
+	[CreatedDate] [datetime] NOT NULL,
+ CONSTRAINT [PK__UserSubs__D1FD775C1CC7D9F6] PRIMARY KEY CLUSTERED 
 (
 	[UserSubscriptionID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
@@ -274,19 +275,27 @@ SET IDENTITY_INSERT [dbo].[FetalGrowthMeasurements] ON
 GO
 INSERT [dbo].[FetalGrowthMeasurements] ([ID], [PregnancyProfileID], [WeekNumber], [MeasurementDate], [Weight], [Height], [HeadCircumference], [BellyCircumference], [HeartRate], [MovementCount], [Notes], [CreatedDate]) VALUES (1, 1, 40, CAST(N'2025-02-10' AS Date), CAST(0.00 AS Decimal(5, 2)), CAST(0.00 AS Decimal(5, 2)), CAST(0.00 AS Decimal(5, 2)), CAST(0.00 AS Decimal(5, 2)), 0, 0, N'string', CAST(N'2025-02-10T14:38:53.330' AS DateTime))
 GO
+INSERT [dbo].[FetalGrowthMeasurements] ([ID], [PregnancyProfileID], [WeekNumber], [MeasurementDate], [Weight], [Height], [HeadCircumference], [BellyCircumference], [HeartRate], [MovementCount], [Notes], [CreatedDate]) VALUES (2, 1, 40, CAST(N'2025-02-12' AS Date), CAST(10.00 AS Decimal(5, 2)), CAST(10.00 AS Decimal(5, 2)), CAST(0.00 AS Decimal(5, 2)), CAST(0.00 AS Decimal(5, 2)), 0, 0, N'string', CAST(N'2025-02-12T04:03:44.830' AS DateTime))
+GO
+INSERT [dbo].[FetalGrowthMeasurements] ([ID], [PregnancyProfileID], [WeekNumber], [MeasurementDate], [Weight], [Height], [HeadCircumference], [BellyCircumference], [HeartRate], [MovementCount], [Notes], [CreatedDate]) VALUES (3, 2, 10, CAST(N'2025-02-12' AS Date), CAST(10.00 AS Decimal(5, 2)), CAST(10.00 AS Decimal(5, 2)), CAST(0.00 AS Decimal(5, 2)), CAST(0.00 AS Decimal(5, 2)), 0, 0, N'string', CAST(N'2025-02-12T04:03:51.753' AS DateTime))
+GO
 SET IDENTITY_INSERT [dbo].[FetalGrowthMeasurements] OFF
 GO
 SET IDENTITY_INSERT [dbo].[PregnancyProfile] ON 
 GO
 INSERT [dbo].[PregnancyProfile] ([ID], [NickName], [DueDate], [ConceptionDate], [LastPeriodDate], [PregnancyWeek], [Notes], [Status], [CreatedDate], [UserID]) VALUES (1, N'string', CAST(N'2025-02-10' AS Date), CAST(N'2025-02-10' AS Date), CAST(N'2025-02-10' AS Date), 0, N'string', N'string', CAST(N'2025-02-10T05:16:37.087' AS DateTime), 4)
 GO
+INSERT [dbo].[PregnancyProfile] ([ID], [NickName], [DueDate], [ConceptionDate], [LastPeriodDate], [PregnancyWeek], [Notes], [Status], [CreatedDate], [UserID]) VALUES (2, N'tesst2', CAST(N'2025-02-12' AS Date), CAST(N'2025-02-12' AS Date), CAST(N'2025-02-12' AS Date), 10, N'string', N'string', CAST(N'2025-02-12T04:03:27.440' AS DateTime), 4)
+GO
 SET IDENTITY_INSERT [dbo].[PregnancyProfile] OFF
 GO
 SET IDENTITY_INSERT [dbo].[RefreshToken] ON 
 GO
-INSERT [dbo].[RefreshToken] ([ID], [Token], [ExpiredAt], [CreatedAt], [UserID]) VALUES (8, N'58143425-991c-4e74-814d-e7c9a40f153b', CAST(N'2025-02-11T04:14:22.747' AS DateTime), CAST(N'2025-02-10T04:14:22.747' AS DateTime), 4)
+INSERT [dbo].[RefreshToken] ([ID], [Token], [ExpiredAt], [CreatedAt], [UserID]) VALUES (10, N'e9b8c5a5-988b-45c6-9ad1-64ecb2fd4a82', CAST(N'2025-02-12T05:19:19.623' AS DateTime), CAST(N'2025-02-11T05:19:19.623' AS DateTime), 5)
 GO
-INSERT [dbo].[RefreshToken] ([ID], [Token], [ExpiredAt], [CreatedAt], [UserID]) VALUES (9, N'189117f4-5daf-4117-948a-93a232221749', CAST(N'2025-02-11T05:13:06.520' AS DateTime), CAST(N'2025-02-10T05:13:06.520' AS DateTime), 4)
+INSERT [dbo].[RefreshToken] ([ID], [Token], [ExpiredAt], [CreatedAt], [UserID]) VALUES (11, N'b0971922-043b-401e-aaf8-1ab4bed016fd', CAST(N'2025-02-13T04:02:33.040' AS DateTime), CAST(N'2025-02-12T04:02:33.040' AS DateTime), 4)
+GO
+INSERT [dbo].[RefreshToken] ([ID], [Token], [ExpiredAt], [CreatedAt], [UserID]) VALUES (12, N'98762796-2f0e-4c35-95f8-b9bd5adf52bc', CAST(N'2025-02-15T14:17:47.950' AS DateTime), CAST(N'2025-02-14T14:17:47.950' AS DateTime), 4)
 GO
 SET IDENTITY_INSERT [dbo].[RefreshToken] OFF
 GO
@@ -300,15 +309,43 @@ INSERT [dbo].[Role] ([ID], [RoleName]) VALUES (3, N'ROLE_USER_PREMIUM')
 GO
 SET IDENTITY_INSERT [dbo].[Role] OFF
 GO
+SET IDENTITY_INSERT [dbo].[SubscriptionPlan] ON 
+GO
+INSERT [dbo].[SubscriptionPlan] ([ID], [Name], [Price], [Duration], [Description], [IsActive], [CreatedDate]) VALUES (1, N'Test month package', CAST(100000.00 AS Decimal(10, 2)), 30, N'Ke hoach dang ky trong 30 ngay', 1, CAST(N'2025-02-14T14:54:45.583' AS DateTime))
+GO
+INSERT [dbo].[SubscriptionPlan] ([ID], [Name], [Price], [Duration], [Description], [IsActive], [CreatedDate]) VALUES (2, N'Test plan2', CAST(120000.00 AS Decimal(10, 2)), 40, N'Ke hoach dang ky trong 40 ngay', 1, CAST(N'2025-02-14T14:55:10.810' AS DateTime))
+GO
+SET IDENTITY_INSERT [dbo].[SubscriptionPlan] OFF
+GO
 SET IDENTITY_INSERT [dbo].[User] ON 
 GO
 INSERT [dbo].[User] ([ID], [Email], [Password], [FullName], [Address], [DateOfBirth], [AvatarUrl], [RoleID], [EmailVerified], [CreatedDate], [Status]) VALUES (4, N'user@gmail.com', N'$2a$10$QAFKCbYgNbUCQeywH6lYYO/UHVFqLWu6tDBmDfXMg1rG.WihPCkX2', N'user full name', N'123 test, hcm', CAST(N'2000-10-10' AS Date), NULL, 2, 1, CAST(N'2025-01-08T14:09:53.727' AS DateTime), N'Active')
 GO
+INSERT [dbo].[User] ([ID], [Email], [Password], [FullName], [Address], [DateOfBirth], [AvatarUrl], [RoleID], [EmailVerified], [CreatedDate], [Status]) VALUES (5, N'admin@gmail.com', N'$2a$10$yRwVHdBfIR7G9ju147fwp.VgksOCIcMgn8Y0HB6j5ITHFTbo4qO22', N'admin', N'string', CAST(N'1996-02-11' AS Date), NULL, 1, 1, CAST(N'2025-02-11T05:18:18.880' AS DateTime), N'Active')
+GO
 SET IDENTITY_INSERT [dbo].[User] OFF
+GO
+SET IDENTITY_INSERT [dbo].[UserSubscription] ON 
+GO
+INSERT [dbo].[UserSubscription] ([UserSubscriptionID], [UserID], [PlanID], [StartDate], [EndDate], [Amount], [SubscriptionCode], [BankCode], [TransactionNo], [PaymentDate], [Status], [CreatedDate]) VALUES (1, 4, 1, CAST(N'2025-02-14' AS Date), CAST(N'2025-03-16' AS Date), CAST(100000.00 AS Decimal(10, 2)), N'180952315245593', NULL, NULL, NULL, N'PAYMENT_PENDING', CAST(N'2025-02-14T14:56:53.967' AS DateTime))
+GO
+INSERT [dbo].[UserSubscription] ([UserSubscriptionID], [UserID], [PlanID], [StartDate], [EndDate], [Amount], [SubscriptionCode], [BankCode], [TransactionNo], [PaymentDate], [Status], [CreatedDate]) VALUES (2, 4, 1, CAST(N'2025-02-14' AS Date), CAST(N'2025-03-16' AS Date), CAST(100000.00 AS Decimal(10, 2)), N'657461147789076', NULL, NULL, NULL, N'PAYMENT_PENDING', CAST(N'2025-02-14T14:58:48.603' AS DateTime))
+GO
+INSERT [dbo].[UserSubscription] ([UserSubscriptionID], [UserID], [PlanID], [StartDate], [EndDate], [Amount], [SubscriptionCode], [BankCode], [TransactionNo], [PaymentDate], [Status], [CreatedDate]) VALUES (3, 4, 1, CAST(N'2025-02-14' AS Date), CAST(N'2025-03-16' AS Date), CAST(100000.00 AS Decimal(10, 2)), N'639067408104137', NULL, NULL, NULL, N'PAYMENT_PENDING', CAST(N'2025-02-14T15:18:47.990' AS DateTime))
+GO
+INSERT [dbo].[UserSubscription] ([UserSubscriptionID], [UserID], [PlanID], [StartDate], [EndDate], [Amount], [SubscriptionCode], [BankCode], [TransactionNo], [PaymentDate], [Status], [CreatedDate]) VALUES (4, 4, 1, CAST(N'2025-02-14' AS Date), CAST(N'2025-03-16' AS Date), CAST(100000.00 AS Decimal(10, 2)), N'002655434586428', NULL, NULL, NULL, N'PAYMENT_PENDING', CAST(N'2025-02-14T15:23:32.313' AS DateTime))
+GO
+INSERT [dbo].[UserSubscription] ([UserSubscriptionID], [UserID], [PlanID], [StartDate], [EndDate], [Amount], [SubscriptionCode], [BankCode], [TransactionNo], [PaymentDate], [Status], [CreatedDate]) VALUES (5, 4, 1, CAST(N'2025-02-14' AS Date), CAST(N'2025-03-16' AS Date), CAST(100000.00 AS Decimal(10, 2)), N'960844504821841', NULL, NULL, NULL, N'PAYMENT_PENDING', CAST(N'2025-02-14T15:31:39.867' AS DateTime))
+GO
+INSERT [dbo].[UserSubscription] ([UserSubscriptionID], [UserID], [PlanID], [StartDate], [EndDate], [Amount], [SubscriptionCode], [BankCode], [TransactionNo], [PaymentDate], [Status], [CreatedDate]) VALUES (6, 4, 1, CAST(N'2025-02-14' AS Date), CAST(N'2025-03-16' AS Date), CAST(100000.00 AS Decimal(10, 2)), N'640765704305903', NULL, NULL, NULL, N'PAYMENT_PENDING', CAST(N'2025-02-14T15:33:54.727' AS DateTime))
+GO
+INSERT [dbo].[UserSubscription] ([UserSubscriptionID], [UserID], [PlanID], [StartDate], [EndDate], [Amount], [SubscriptionCode], [BankCode], [TransactionNo], [PaymentDate], [Status], [CreatedDate]) VALUES (7, 4, 1, CAST(N'2025-02-14' AS Date), CAST(N'2025-03-16' AS Date), CAST(100000.00 AS Decimal(10, 2)), N'088599694615260', N'NCB', N'14811642', CAST(N'2025-02-14T22:39:57.000' AS DateTime), N'PENDING', CAST(N'2025-02-14T15:39:24.050' AS DateTime))
+GO
+SET IDENTITY_INSERT [dbo].[UserSubscription] OFF
 GO
 SET ANSI_PADDING ON
 GO
-/****** Object:  Index [UQ__RefreshT__1EB4F8173E4C9548]    Script Date: 2/11/2025 11:51:33 AM ******/
+/****** Object:  Index [UQ__RefreshT__1EB4F8173E4C9548]    Script Date: 2/18/2025 9:52:49 AM ******/
 ALTER TABLE [dbo].[RefreshToken] ADD UNIQUE NONCLUSTERED 
 (
 	[Token] ASC
@@ -316,11 +353,19 @@ ALTER TABLE [dbo].[RefreshToken] ADD UNIQUE NONCLUSTERED
 GO
 SET ANSI_PADDING ON
 GO
-/****** Object:  Index [UQ__User__A9D10534B77F00C7]    Script Date: 2/11/2025 11:51:33 AM ******/
+/****** Object:  Index [UQ__User__A9D10534B77F00C7]    Script Date: 2/18/2025 9:52:49 AM ******/
 ALTER TABLE [dbo].[User] ADD UNIQUE NONCLUSTERED 
 (
 	[Email] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [UQ_SubscriptionCode]    Script Date: 2/18/2025 9:52:49 AM ******/
+CREATE UNIQUE NONCLUSTERED INDEX [UQ_SubscriptionCode] ON [dbo].[UserSubscription]
+(
+	[SubscriptionCode] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 GO
 ALTER TABLE [dbo].[CommunityPost] ADD  DEFAULT (sysdatetime()) FOR [CreatedDate]
 GO
@@ -330,15 +375,15 @@ ALTER TABLE [dbo].[PregnancyProfile] ADD  DEFAULT ('active') FOR [Status]
 GO
 ALTER TABLE [dbo].[PregnancyProfile] ADD  DEFAULT (sysdatetime()) FOR [CreatedDate]
 GO
-ALTER TABLE [dbo].[SubscriptionPlan] ADD  DEFAULT (sysdatetime()) FOR [CreatedDate]
+ALTER TABLE [dbo].[SubscriptionPlan] ADD  CONSTRAINT [DF__Subscript__Creat__4AB81AF0]  DEFAULT (sysdatetime()) FOR [CreatedDate]
 GO
 ALTER TABLE [dbo].[User] ADD  DEFAULT ((0)) FOR [EmailVerified]
 GO
 ALTER TABLE [dbo].[User] ADD  DEFAULT (sysdatetime()) FOR [CreatedDate]
 GO
-ALTER TABLE [dbo].[UserSubscription] ADD  DEFAULT (sysdatetime()) FOR [CreatedDate]
+ALTER TABLE [dbo].[UserSubscription] ADD  CONSTRAINT [DF__UserSubsc__Statu__534D60F1]  DEFAULT ('active') FOR [SubscriptionCode]
 GO
-ALTER TABLE [dbo].[UserSubscription] ADD  DEFAULT ('active') FOR [Status]
+ALTER TABLE [dbo].[UserSubscription] ADD  CONSTRAINT [DF__UserSubsc__Creat__52593CB8]  DEFAULT (sysdatetime()) FOR [CreatedDate]
 GO
 ALTER TABLE [dbo].[Comment]  WITH CHECK ADD  CONSTRAINT [FK_CommunityPost_Comment] FOREIGN KEY([PostID])
 REFERENCES [dbo].[CommunityPost] ([ID])
