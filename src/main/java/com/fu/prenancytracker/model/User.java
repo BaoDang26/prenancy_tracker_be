@@ -1,5 +1,6 @@
 package com.fu.prenancytracker.model;
 
+import com.fu.prenancytracker.payload.request.RegisterRequest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
