@@ -24,10 +24,11 @@ public class VNPayServiceImpl implements VNPayService {
     }
 
     @Override
-    public String createOrder(int total, String orderInfo, String urlReturn) {
+    public String createOrder(int total, String orderInfo, String subscriptionCode) {
+        // Tạo dữ liệu cho request
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
-        String vnp_TxnRef = vnPayConfig.getRandomNumber(8);
+        String vnp_TxnRef = subscriptionCode;
         String vnp_IpAddr = "127.0.0.1";
         String vnp_TmnCode = vnPayConfig.getVnp_TmnCode();
         String orderType = "order-type";
@@ -46,11 +47,10 @@ public class VNPayServiceImpl implements VNPayService {
         String locate = "vn";
         vnp_Params.put("vnp_Locale", locate);
 
-        urlReturn += vnPayConfig.getVnp_ReturnUrl();
+        String urlReturn = vnPayConfig.getVnp_ReturnUrl();
         vnp_Params.put("vnp_ReturnUrl", urlReturn);
         vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
 
-        logger.warn(urlReturn);
 
         Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -60,15 +60,18 @@ public class VNPayServiceImpl implements VNPayService {
         cld.add(Calendar.MINUTE, 15);
         String vnp_ExpireDate = formatter.format(cld.getTime());
         vnp_Params.put("vnp_ExpireDate", vnp_ExpireDate);
+        // Build data để hash và gửi sang VNPay
+        List<String> fieldNames = new ArrayList<>(vnp_Params.keySet());
 
-        List fieldNames = new ArrayList(vnp_Params.keySet());
         Collections.sort(fieldNames);
         StringBuilder hashData = new StringBuilder();
         StringBuilder query = new StringBuilder();
-        Iterator itr = fieldNames.iterator();
+        // Tạo chuỗi hash data và query
+        Iterator<String> itr = fieldNames.iterator();
         while (itr.hasNext()) {
             String fieldName = (String) itr.next();
             String fieldValue = vnp_Params.get(fieldName);
+            // Thêm vào hash data nếu không phải là tham số trả về
             if ((fieldValue != null) && (!fieldValue.isEmpty())) {
                 //Build hash data
                 hashData.append(fieldName);
@@ -84,15 +87,20 @@ public class VNPayServiceImpl implements VNPayService {
                 }
             }
         }
+        // Thêm secret key vào hash data
         String queryUrl = query.toString();
+        // Hash dữ liệu và thêm vào queryUrl để gửi sang VNPay
         String vnp_SecureHash = vnPayConfig.hmacSHA512(vnPayConfig.getVnp_HashSecret(), hashData.toString());
+        // Thêm chữ ký vào queryUrl để gửi sang VNPay
         queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
+
         return vnPayConfig.getVnp_PayUrl() + "?" + queryUrl;
     }
 
     @Override
     public int orderReturn(HttpServletRequest request) {
-        Map fields = new HashMap();
+        Map<String, String> fields = new HashMap<>();
+        // Lấy tất cả các tham số trên URL và đưa vào fields
         for (Enumeration<String> params = request.getParameterNames(); params.hasMoreElements(); ) {
             String fieldName = null;
             String fieldValue = null;
@@ -103,16 +111,17 @@ public class VNPayServiceImpl implements VNPayService {
             }
         }
 
+        // Lấy chữ ký của VNPay gửi về để kiểm tra tính hợp lệ của dữ liệu
         String vnp_SecureHash = request.getParameter("vnp_SecureHash");
         fields.remove("vnp_SecureHashType");
         fields.remove("vnp_SecureHash");
         String signValue = vnPayConfig.hashAllFields(fields);
+
+        // Kiểm tra xem chữ ký có hợp lệ không
         if (signValue.equals(vnp_SecureHash)) {
-            if ("00".equals(request.getParameter("vnp_TransactionStatus"))) {
-                return 1;
-            } else {
-                return 0;
-            }
+            // Kiểm tra kết quả vnp_TransactionStatus = 00 là thanh toán thành công
+            // và mọi giá trị khác là thất bại
+            return "00".equals(request.getParameter("vnp_TransactionStatus")) ? 1 : 0;
         } else {
             return -1;
         }

@@ -42,4 +42,14 @@ public class UserSubscriptionServiceImpl implements UserSubscriptionService {
     public Optional<UserSubscription> findBySubscriptionCode(String subscriptionCode) {
         return userSubscriptionRepository.findBySubscriptionCode(subscriptionCode);
     }
+
+    @Override
+    public Iterable<UserSubscription> findByUserId(Integer userId) {
+        return userSubscriptionRepository.findByUserId(userId);
+    }
+
+    @Override
+    public Optional<UserSubscription> findById(Integer userSubscriptionId) {
+        return userSubscriptionRepository.findById(userSubscriptionId);
+    }
 }

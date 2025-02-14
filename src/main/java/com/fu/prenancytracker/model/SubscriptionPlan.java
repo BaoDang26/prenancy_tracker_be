@@ -23,12 +23,6 @@ public class SubscriptionPlan {
     @Column(name = "Name", nullable = false, length = 100)
     private String name;
 
-    @Size(max = 50)
-    @NotNull
-    @Nationalized
-    @Column(name = "Type", nullable = false, length = 50)
-    private String type;
-
     @NotNull
     @Column(name = "Price", nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
@@ -67,13 +61,6 @@ public class SubscriptionPlan {
         this.name = name;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 
     public BigDecimal getPrice() {
         return price;

@@ -11,4 +11,8 @@ public interface UserSubscriptionService extends  GeneralService<UserSubscriptio
     boolean checkUserHasSubscription(Integer userID);
 
     Optional<UserSubscription> findBySubscriptionCode(String subscriptionCode);
+
+    Iterable<UserSubscription> findByUserId(Integer userId);
+
+    Optional<UserSubscription> findById(Integer userSubscriptionId);
 }
